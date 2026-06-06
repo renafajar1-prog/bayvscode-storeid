@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BAYVSCODE ID — Night Core Store</title>
+    <!-- Google Fonts: Inter & Space Grotesk -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-pure: #020204; /* Sangat gelap / Hitam Pekat */
+            --card-dark: #08090e; /* Kartu abu-hitam mikro */
+            --border-neon: rgba(139, 92, 246, 0.15); /* Ungu Nightcore */
+            --neon-glow: #8b5cf6;
+            --neon-cyan: #06b6d4;
+            --text-white: #ffffff;
+            --text-darker: #64748b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-pure);
+            color: var(--text-white);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* 🌌 BACKGROUND ANIMASI BINTANG JATUH & NEBULA GELAP */
+        .space-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            background: radial-gradient(circle at 50% 0%, #06050c 0%, #020204 80%);
+        }
+
+        .space-bg::before {
+            content: '';
+            position: absolute;
+            top: -10%; left: 30%; width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.04) 0%, transparent 70%);
+            filter: blur(60px);
+        }
+
+        .stars {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            transform: rotate(-45deg);
+        }
+
+        .star {
+            position: absolute;
+            top: var(--top);
+            left: var(--left);
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, #8b5cf6, transparent);
+            animation: fall var(--speed) linear infinite;
+            animation-delay: var(--delay);
+            opacity: 0;
+        }
+
+        .star::before {
+            content: '';
+            position: absolute;
+            right: 0; top: 0;
+            width: 2px; height: 2px;
+            background: #ffffff;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #ffffff;
+        }
+
+        @keyframes fall {
+            0% { transform: translateX(0); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateX(300px); opacity: 0; }
+        }
+
+        /* ⚡ CONTAINER UTAMA */
+        .container {
+            width: 90%;
+            max-width: 680px; /* Dipersempit lagi agar kartu semakin ringkas */
+            margin: 0 auto;
+            padding: 60px 0;
+        }
+
+        /* 👑 HEADER NIGHT CORE */
+        header {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .logo-box {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 18px;
+        }
+
+        .logo-box::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(135deg, var(--neon-glow), var(--neon-cyan));
+            border-radius: 22px;
+            z-index: -1;
+            filter: blur(8px);
+            opacity: 0.4;
+        }
+
+        .logo {
+            width: 80px; /* Ukuran kompak */
+            height: 80px;
+            border-radius: 20px;
+            object-fit: cover;
+            display: block;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            background: linear-gradient(to bottom, #ffffff 70%, #64748b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tagline {
+            font-size: 0.85rem;
+            color: var(--text-darker);
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 500;
+        }
+
+        /* 📦 ULTRA-COMPACT 2-2 GRID */
+        .grid-bento {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Kunci 2 kolom sampingan */
+            gap: 12px;
+        }
+
+        /* MICRO NIGHTCORE CARD */
+        .card {
+            background: var(--card-dark);
+            border: 1px solid var(--border-neon);
+            border-radius: 12px;
+            padding: 14px 16px; /* Padding tipis, micro size */
+            display: flex;
+            align-items: center; /* Sejajar horizontal super rapi */
+            gap: 12px;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card:hover {
+            transform: scale(1.02);
+            border-color: var(--neon-glow);
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.15);
+            background: #0d0e15;
+        }
+
+        .icon-wrapper {
+            font-size: 1.1rem;
+            width: 32px;
+            height: 32px;
+            background: rgba(139, 92, 246, 0.05);
+            border: 1px solid rgba(139, 92, 246, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .card-details h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--text-white);
+            margin-bottom: 2px;
+        }
+
+        .card-details p {
+            font-size: 0.74rem;
+            color: var(--text-darker);
+            line-height: 1.3;
+        }
+
+        /* 🔗 PANEL KONTAK GHOST/DARK */
+        .cta-wrap {
+            margin-top: 35px;
+            padding: 20px;
+            background: #05060a;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .cta-wrap h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.95rem;
+            color: #f1f5f9;
+            margin-bottom: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .btn-flex {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 24px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            width: 100%;
+            max-width: 150px;
+        }
+
+        .btn-prime {
+            background: linear-gradient(135deg, var(--neon-glow), #7c3aed);
+            color: #ffffff;
+            box-shadow: 0 4px 10px rgba(139, 92, 246, 0.2);
+        }
+
+        .btn-prime:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(139, 92, 246, 0.3);
+        }
+
+        .btn-ghost {
+            background-color: rgba(255, 255, 255, 0.02);
+            color: var(--text-white);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .btn-ghost:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.68rem;
+            color: rgba(100, 116, 139, 0.4);
+        }
+
+        /* Tampilan Responsif HP */
+        @media (max-width: 540px) {
+            .grid-bento {
+                grid-template-columns: 1fr; /* Di layar HP sempit kembali 1 kolom agar tulisan tidak rusak */
+            }
+            .btn-flex {
+                flex-direction: column;
+                align-items: center;
+            }
+            .btn {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Space Background Element -->
+    <div class="space-bg">
+        <div class="stars">
+            <div class="star" style="--top: 15%; --left: 10%; --speed: 3s; --delay: 0s;"></div>
+            <div class="star" style="--top: 45%; --left: 40%; --speed: 2.5s; --delay: 1s;"></div>
+            <div class="star" style="--top: 65%; --left: 20%; --speed: 4s; --delay: 0.5s;"></div>
+            <div class="star" style="--top: 25%; --left: 70%; --speed: 3.5s; --delay: 1.8s;"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Profile Header -->
+        <header>
+            <div class="logo-box">
+                <img src="https://files.catbox.moe/ngk01z.png" alt="BAYVSCODE ID" class="logo">
+            </div>
+            <h1>BAYVSCODE ID</h1>
+            <p class="tagline">SYSTEMS CORRE & CORE SOLUTIONS</p>
+        </header>
+
+        <!-- Bento Grid Products Section -->
+        <main>
+            <div class="grid-bento">
+                <!-- Card 1 -->
+                <div class="card">
+                    <div class="icon-wrapper">🌐</div>
+                    <div class="card-details">
+                        <h3>Vpn Server VVIP</h3>
+                        <p>Koneksi privat stabil enkripsi tinggi.</p>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="card">
+                    <div class="icon-wrapper">💻</div>
+                    <div class="card-details">
+                        <h3>Jasa Buat Website</h3>
+                        <p>Desain UI modern, clean & responsif.</p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="card">
+                    <div class="icon-wrapper">🛒</div>
+                    <div class="card-details">
+                        <h3>Script Web Store</h3>
+                        <p>Source-code toko digital otomatisasi.</p>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="card">
+                    <div class="icon-wrapper">⚡</div>
+                    <div class="card-details">
+                        <h3>Vps Kualitas VVIP</h3>
+                        <p>Virtual server tinggi NVMe storage.</p>
+                    </div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="card">
+                    <div class="icon-wrapper">🎮</div>
+                    <div class="card-details">
+                        <h3>Panel Pterodactyl</h3>
+                        <p>Hosting game simpel unlimited resource.</p>
+                    </div>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="card">
+                    <div class="icon-wrapper">🤖</div>
+                    <div class="card-details">
+                        <h3>Script Bot WA</h3>
+                        <p>Engine automasi robot asisten 24/7.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Call to Action Container -->
+        <div class="cta-wrap">
+            <h2>Hubungi Hubungan Admin</h2>
+            <div class="btn-flex">
+                <a href="https://wa.me/6285859376340" target="_blank" class="btn btn-prime">
+                    Contact Admin
+                </a>
+                <a href="https://whatsapp.com/channel/0029VbCvWwLDp2QCKccXJQ2l" target="_blank" class="btn btn-ghost">
+                    Channel Admin
+                </a>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p>&copy; 2026 BAYVSCODE ID. Night Core UI System.</p>
+        </footer>
+    </div>
+
+</body>
+</html>
